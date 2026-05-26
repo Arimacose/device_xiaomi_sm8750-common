@@ -1872,6 +1872,9 @@ odm/bin/toucheventcheck
 odm/etc/init.panel_info.sh
 odm/etc/init/vendor.xiaomi.hw.touchfeature-service.rc
 odm/etc/vintf/manifest/vendor.xiaomi.hw.touchfeature-service.xml
+vendor/lib64/vendor.xiaomi.hw.touchfeature-V1-ndk.so
+system_ext/lib64/vendor.xiaomi.hw.touchfeature-V1-ndk.so;MAKE_COPY_RULE_ONLY
+system_ext/lib/vendor.xiaomi.hw.touchfeature-V1-ndk.so;MAKE_COPY_RULE_ONLY
 odm/lib64/libtensorflowlite_touch_c.so
 odm/lib64/libtouchreport_alg.so
 odm/lib64/libtouchreport_hal.so
