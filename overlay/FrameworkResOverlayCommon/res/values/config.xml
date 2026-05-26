@@ -185,6 +185,15 @@
          during initialization when the setting is still null. -->
     <bool name="config_dozeAlwaysOnEnabled">false</bool>
 
+    <!-- UDFPS wakeup sensor used by Doze for screen-off fingerprint unlock. -->
+    <string name="config_dozeUdfpsLongPressSensorType" translatable="false">org.lineageos.sensor.udfps</string>
+
+    <!-- Whether to enable fingerprint unlock while the screen is off on UDFPS devices. -->
+    <bool name="config_screen_off_udfps_enabled">true</bool>
+
+    <!-- Default value for the user-facing screen-off UDFPS unlock toggle. -->
+    <bool name="config_screen_off_udfps_default_on">true</bool>
+
     <!-- Power Management: Specifies whether to decouple the auto-suspend state of the
          device from the display on/off state.
 

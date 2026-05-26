@@ -304,9 +304,11 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors-service.xiaomi-sm8750-multihal
+    android.hardware.sensors-service.xiaomi-sm8750-multihal \
+    sensors.xiaomi.sm8750.udfps
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/sensors/udfps/hals.conf:$(TARGET_COPY_OUT_ODM)/etc/sensors/hals.conf \
 	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/sku_sun/android.hardware.sensor.accelerometer.xml \
 	frameworks/native/data/etc/android.hardware.sensor.compass.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/sku_sun/android.hardware.sensor.compass.xml \
 	frameworks/native/data/etc/android.hardware.sensor.barometer.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/android.hardware.sensor.barometer.xml \
