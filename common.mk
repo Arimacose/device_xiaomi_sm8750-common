@@ -19,8 +19,8 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 # Enforce generic ramdisk allow list
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 
-# Virtualization service
-$(call inherit-product, packages/modules/Virtualization/apex/product_packages.mk)
+# The stock kernel advertises protected VM support as disabled, and enabling the
+# full AVF product package pulls in cuttlefish-only bootloader prebuilts.
 
 # Add common definitions for Qualcomm
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
@@ -132,12 +132,6 @@ PRODUCT_COPY_FILES += \
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm-service.clearkey
-
-ifeq ($(filter dada xuanyuan,$(TARGET_DEVICE)),)
-# Euicc
-PRODUCT_PACKAGES += \
-    XiaomiEuicc
-endif
 
 # Fastboot
 PRODUCT_PACKAGES += \
