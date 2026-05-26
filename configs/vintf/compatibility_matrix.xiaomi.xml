@@ -139,6 +139,14 @@
         </interface>
     </hal>
     <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.mediaeventgatherservice</name>
+        <version>1</version>
+        <interface>
+            <name>IMediaGather</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
         <name>vendor.xiaomi.hardware.mfidoca</name>
         <interface>
             <name>IFidoService</name>
@@ -164,6 +172,14 @@
         <name>vendor.xiaomi.hardware.quickcamera</name>
         <interface>
             <name>IQuickCameraService</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.seaaudio</name>
+        <version>1</version>
+        <interface>
+            <name>ISeaAudio</name>
             <instance>default</instance>
         </interface>
     </hal>

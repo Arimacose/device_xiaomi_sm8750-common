@@ -26,6 +26,16 @@ attribute dvs_aidl;
 attribute hal_aidl_dms_client;
 attribute hal_aidl_dms_server;
 
+# Media
+attribute hal_mediaeventgatherservice;
+attribute hal_mediaeventgatherservice_client;
+attribute hal_mediaeventgatherservice_server;
+
+# SeaAudio
+attribute hal_seaaudio;
+attribute hal_seaaudio_client;
+attribute hal_seaaudio_server;
+
 # Hypsys
 attribute hal_hypsys_vendor_service_client;
 

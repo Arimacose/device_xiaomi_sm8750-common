@@ -9,6 +9,7 @@ ro.audio.flinger_standbytime_ms=2000
 ro.audio.monitorRotation=true
 ro.audio.spatializer_enabled=true
 vendor.audio.hal.aidl.enabled=true
+vendor.audio.hal.loglevel=0
 vendor.audio.hal.output.suspend.supported=true
 ro.vendor.audio.aiasst.support=true
 ro.vendor.audio.btsamplerate.adaptive=true
@@ -83,7 +84,6 @@ persist.vendor.qcom.bluetooth.fmd_config_info=80:0C:60:90:0F:00:00:14:01
 persist.vendor.qcom.bluetooth.fmd_header=8:02:01:06:18:16:AA:FE:40
 persist.vendor.qcom.bluetooth.lossless_aptx_adaptive_le.enabled=true
 persist.vendor.qti.btadvaudio.target.support.xpan=true
-ro.vendor.audio.btsamplerate.adaptive=true
 ro.vendor.audio.misound.bluetooth.enable=false
 ro.vendor.bluetooth.btconfigstore=false
 

@@ -35,7 +35,6 @@ def lib_fixup_vendor_suffix(lib: str, partition: str, *args, **kwargs):
 lib_fixups: lib_fixups_user_type = {
     **lib_fixups,
     (
-        'libc++_shared',
         'libmialgo',
         'libaudioserviceexampleimpl',
     ): lib_fixup_remove,
@@ -201,9 +200,17 @@ blob_fixups: blob_fixups_user_type = {
             'libtinyxml2-v34.so'
         ),
     (
-        'vendor/lib64/libVoiceSdk.so',
-        'vendor/lib64/libcapiv2uvvendor.so',
-        'vendor/lib64/liblistensoundmodel2vendor.so',
+       'vendor/lib64/hw/libaudioeffecthal.qti.so',
+    ): blob_fixup()
+        .binary_regex_replace(b'libtinyxml2.so\\0', b'libtinyxmlQ.so\\0'),
+    (
+       'vendor/lib64/libtinyxmlQ.so',
+    ): blob_fixup()
+        .binary_regex_replace(b'libtinyxml2.so\\0', b'libtinyxmlQ.so\\0'),
+    (
+       'vendor/lib64/libVoiceSdk.so',
+       'vendor/lib64/libcapiv2uvvendor.so',
+       'vendor/lib64/liblistensoundmodel2vendor.so',
     ): blob_fixup()
         .replace_needed('libtensorflowlite_c.so', 'libtensorflowlite_c_vendor.so'),
 }  # fmt: skip

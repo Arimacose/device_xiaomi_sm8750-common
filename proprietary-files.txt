@@ -91,11 +91,16 @@ vendor/lib64/libloadalgo_stub.so
 vendor/lib64/libvmmem.so
 
 # Audio
+odm/bin/hw/vendor.xiaomi.hardware.seaaudio-service
 odm/etc/audio/hrtf5c.bin
 odm/etc/audio/silent-3sec.wav
+odm/etc/init/vendor.xiaomi.hardware.seaaudio.rc
+odm/etc/vintf/manifest/vendor.xiaomi.hardware.seaaudio.xml
 odm/lib64/libaudioroute_ext.so
 odm/lib64/libcrussp.so
+odm/lib64/libc++_shared.so
 odm/lib64/libwindns.so;DISABLE_CHECKELF
+odm/lib64/vendor.xiaomi.hardware.seaaudio-V1-ndk.so
 vendor/bin/hw/audiohalservice.qti
 vendor/etc/hrtf5c.bin
 vendor/etc/init/audiohalservice_qti.rc
@@ -105,9 +110,14 @@ vendor/etc/models/acd/music.eai
 vendor/etc/models/acd/speech.eai
 vendor/etc/vintf/manifest/qasr_vintf.xml
 vendor/lib64/android.media.audio.common.types-V6-ndk.so
-vendor/lib64/hw/libaudiocorehal.default.so;REQUIRED=manifest_audiocorehal_default.xml;DISABLE_DEPS
+
+# Keep the stock audio VINTF fragments next to the HAL prebuilts and attach
+# them via cc_prebuilt_library_shared.vintf_fragments in the generated
+# vendor Android.bp. Do not list those XMLs here as standalone prebuilt_etc
+# modules; that duplicates the CAF source fragment install rules.
+vendor/lib64/hw/libaudiocorehal.default.so;DISABLE_DEPS
 vendor/lib64/hw/libaudiocorehal.qti.so;DISABLE_DEPS
-vendor/lib64/hw/libaudioeffecthal.qti.so;REQUIRED=audioeffectservice_qti.xml;DISABLE_DEPS
+vendor/lib64/hw/libaudioeffecthal.qti.so;DISABLE_DEPS
 vendor/lib64/lib_lvacfs.so
 vendor/lib64/libadm.so
 vendor/lib64/libar-acdb.so
@@ -147,6 +157,7 @@ vendor/lib64/libpaleventnotifier.so
 vendor/lib64/libpalipcservice.so
 vendor/lib64/libqasr.so
 vendor/lib64/libqtigefar.so;DISABLE_DEPS
+vendor/lib64/libRecordCNN.so
 vendor/lib64/libtensorflowlite_c.so:vendor/lib64/libtensorflowlite_c_vendor.so;FIX_SONAME
 vendor/lib64/libtiantongpal.so
 vendor/lib64/libultrasound_notify.so
@@ -200,6 +211,7 @@ vendor/lib64/soundfx/libldnhncr.so
 vendor/lib64/soundfx/libloudnessenhanceraidl.so;DISABLE_DEPS
 vendor/lib64/soundfx/liblvacfsprocessingaidl.so;DISABLE_DEPS
 vendor/lib64/soundfx/libmiwndnsprocessingaidl.so;DISABLE_DEPS
+vendor/lib64/soundfx/libozoaidl.so;DISABLE_DEPS
 vendor/lib64/soundfx/libqcompostprocbundle.so;DISABLE_DEPS
 vendor/lib64/soundfx/libqcomvisualizer.so;DISABLE_DEPS
 vendor/lib64/soundfx/libqcomvoiceprocessing.so;DISABLE_DEPS
@@ -699,6 +711,7 @@ vendor/lib64/libsdm-colormgr-algo.so
 vendor/lib64/libsdm-disp-vndapis.so
 vendor/lib64/libsdmextension.so
 vendor/lib64/libtestutils.so
+vendor/lib64/libtinyxml2.so:vendor/lib64/libtinyxmlQ.so
 vendor/lib64/libtinyxml2_1.so
 vendor/lib64/libvmfilexfer.so
 
@@ -1084,6 +1097,9 @@ vendor/lib64/liblistensoundmodelaidl.so
 vendor/lib64/vendor.qti.hardware.ListenSoundModelAidl-V1-ndk.so
 
 # Media
+odm/bin/hw/vendor.xiaomi.hardware.mediaeventgatherservice-service
+odm/etc/init/vendor.xiaomi.hardware.mediaeventgatherservice.rc
+odm/etc/vintf/manifest/vendor.xiaomi.hardware.mediaeventgatherservice.xml
 odm/lib64/vendor.xiaomi.hardware.mediaeventgatherservice-V1-ndk.so
 vendor/bin/init.qti.media.sh
 vendor/bin/hw/vendor.qti.media.c2@1.0-service
