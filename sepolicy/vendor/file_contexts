@@ -134,6 +134,9 @@
 /sys/devices/virtual/thermal/thermal_message/wifi_limit u:object_r:sys_thermal_wifi_limit:s0
 /sys/powersave(/.*)? u:object_r:sysfs_power_save:s0
 
+# Vibrator
+/vendor/bin/hw/android\.hardware\.vibrator-service\.xiaomi-sm8750 u:object_r:hal_vibrator_default_exec:s0
+
 # Touch
 /(odm|vendor/odm|vendor|system/vendor)/bin/hw/vendor\.xiaomi\.hw\.touchfeature-service u:object_r:hal_touchfeature_xiaomi_default_exec:s0
 /(odm|vendor/odm|vendor|system/vendor)/bin/touch_report u:object_r:touchreport_exec:s0
