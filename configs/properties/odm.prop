@@ -84,8 +84,8 @@ vendor.display.boost_cpu_layer_number_threshold=12
 vendor.display.disable_3d_adaptive_tm=1
 vendor.display.disable_stc_dimming=1
 vendor.display.disable_sdr_dimming=0
-vendor.display.disable_cwb_call=0
-vendor.display.enable_cwb_notify_sensor=1
+vendor.display.disable_cwb_call=1
+vendor.display.enable_cwb_notify_sensor=0
 vendor.display.enable_aod_insert_black_frame=1
 vendor.display.enable_hdr10_gpu_target=0
 vendor.display.enable_demura=1
@@ -108,7 +108,7 @@ vendor.wv.oemcrypto.debug.enable_prov40=true
 ro.vendor.qti.va_odm.support=1
 
 # Graphics
-debug.sf.set_idle_timer_ms=1100
+debug.sf.set_idle_timer_ms=110
 persist.vendor.dc_backlight.enable=false
 persist.vendor.dc_backlight.threshold=0
 

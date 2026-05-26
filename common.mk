@@ -151,16 +151,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xm
 
-# Graphics
+# Graphics - use stock vendor prebuilts for display HAL code modules.
+# Config/rc files are installed via vendor COPY_FILES or source-side prebuilt_etc.
 PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
-    init.qti.display_boot.rc \
-    init.qti.display_boot.sh \
     libgralloc.qti \
     mapper.qti \
     vendor.qti.hardware.display.allocator-service \
-    vendor.qti.hardware.display.composer-service.rc \
-    vendor.qti.hardware.display.composer-service.xml \
     vendor.qti.hardware.display.config-V12-ndk.vendor \
     vendor.qti.hardware.display.demura-service
 

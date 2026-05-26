@@ -154,6 +154,13 @@ vendor.mi.filter.lut.enable u:object_r:vendor_displayfeature_prop:s0
 vendor.mi_sf. u:object_r:vendor_displayfeature_prop:s0
 vendor.video.mode.status u:object_r:vendor_displayfeature_prop:s0
 
+# Panel info
+vendor.panel. u:object_r:vendor_panel_info_prop:s0 prefix
+vendor.panel.color u:object_r:vendor_panel_info_prop:s0 exact string
+vendor.panel.display u:object_r:vendor_panel_info_prop:s0 exact string
+vendor.panel.touch_vendor u:object_r:vendor_panel_info_prop:s0 exact string
+vendor.panel.vendor u:object_r:vendor_panel_info_prop:s0 exact string
+
 # Dolby
 persist.vendor.dolbyv. u:object_r:vendor_dolbyv_prop:s0
 vendor.dolbyv. u:object_r:vendor_dolbyv_prop:s0
@@ -167,8 +174,6 @@ persist.vendor.sys.fp.uid u:object_r:vendor_fp_prop:s0
 ro.hardware.fp. u:object_r:vendor_fp_prop:s0
 vendor.dtool. u:object_r:vendor_fp_prop:s0
 vendor.fps_hal. u:object_r:vendor_fp_prop:s0
-vendor.panel.display. u:object_r:vendor_fp_prop:s0
-vendor.panel.touch_vendor u:object_r:vendor_fp_prop:s0
 
 # Mlipay
 odm.security.rootpub.load u:object_r:vendor_payment_security_prop:s0

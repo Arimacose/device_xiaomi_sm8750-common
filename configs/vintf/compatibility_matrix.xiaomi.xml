@@ -92,6 +92,13 @@
         </interface>
     </hal>
     <hal format="aidl" optional="true">
+        <name>vendor.xiaomi.hardware.display.mihwcextension</name>
+        <interface>
+            <name>IMiHwcExtension</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
         <name>vendor.xiaomi.hardware.displayfeature_aidl</name>
         <version>2</version>
         <interface>
