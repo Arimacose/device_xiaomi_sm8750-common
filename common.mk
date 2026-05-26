@@ -61,7 +61,9 @@ PRODUCT_PACKAGES += \
     audioadsprpcd \
     audio.primary.default \
     audio.r_submix.default \
-    audio.usb.default
+    audio.usb.default \
+    libaudiohalvendorextn \
+    qtiaudiohalvendorextn
 
 PRODUCT_PACKAGES += \
     libaudiochargerlistener \
