@@ -1118,8 +1118,6 @@ vendor/etc/media_sun/video_system_specs.json
 vendor/etc/media_profiles.xml
 vendor/etc/media_profiles_V1_0.xml
 vendor/etc/media_profiles_sun.xml
-vendor/etc/seccomp_policy/c2audio.vendor.base-arm64.policy
-vendor/etc/seccomp_policy/c2audio.vendor.ext-arm64.policy
 vendor/etc/seccomp_policy/codec2.vendor.base-arm64.policy
 vendor/etc/seccomp_policy/codec2.vendor.ext-arm64.policy
 vendor/etc/vintf/manifest/c2_manifest_vendor.xml
@@ -1161,10 +1159,10 @@ vendor/bin/hw/android.hardware.media.c2-mi-service
 vendor/etc/media_codecs_mi_c2_audio.xml
 vendor/etc/init/android.hardware.media.c2-mi-service.rc
 vendor/etc/vintf/manifest/media_c2_mi.xml
-vendor/lib64/lib_AIVC_decoder.so
-vendor/lib64/lib_AIVC_encoder.so
-vendor/lib64/libcodec2_soft_aivc_dec.so
-vendor/lib64/libcodec2_soft_aivc_enc.so
+# vendor/lib64/lib_AIVC_decoder.so
+# vendor/lib64/lib_AIVC_encoder.so
+# vendor/lib64/libcodec2_soft_aivc_dec.so
+# vendor/lib64/libcodec2_soft_aivc_enc.so
 vendor/lib64/libcodec2_soft_mihc_dec.so
 vendor/lib64/libcodec2_soft_mihc_enc.so
 vendor/lib64/libcodec2_store_mi.so
@@ -1935,8 +1933,8 @@ vendor/lib64/vendor.qti.hardware.vpp@1.2.so
 vendor/lib64/vendor.qti.hardware.vpp@1.3.so
 
 # VPU firmware
-odm/firmware/vpu33_4v.mbn
-odm/firmware/vpu33_4v_unsigned.mbn
+# odm/firmware/vpu33_4v.mbn
+# odm/firmware/vpu33_4v_unsigned.mbn
 odm/firmware/vpu35_4v.mbn
 odm/firmware/vpu35_4v_unsigned.mbn
 
