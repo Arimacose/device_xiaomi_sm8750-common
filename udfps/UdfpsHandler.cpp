@@ -40,6 +40,10 @@ class SM8750UdfpsHandler : public UdfpsHandler {
 
     void onFingerDown(uint32_t x, uint32_t y, float /*minor*/, float /*major*/) {
         LOG(DEBUG) << __func__ << "x: " << x << ", y: " << y;
+        if (!mDevice || !mDevice->extCmd) {
+            LOG(ERROR) << __func__ << ": fingerprint HAL extCmd is unavailable";
+            return;
+        }
         mDevice->extCmd(mDevice, COMMAND_FOD_PRESS_X, x);
         mDevice->extCmd(mDevice, COMMAND_FOD_PRESS_Y, y);
         mDevice->extCmd(mDevice, COMMAND_FOD_PRESS_STATUS, PARAM_FOD_PRESSED);
@@ -47,6 +51,10 @@ class SM8750UdfpsHandler : public UdfpsHandler {
 
     void onFingerUp() {
         LOG(DEBUG) << __func__;
+        if (!mDevice || !mDevice->extCmd) {
+            LOG(ERROR) << __func__ << ": fingerprint HAL extCmd is unavailable";
+            return;
+        }
         mDevice->extCmd(mDevice, COMMAND_FOD_PRESS_X, 0);
         mDevice->extCmd(mDevice, COMMAND_FOD_PRESS_Y, 0);
         mDevice->extCmd(mDevice, COMMAND_FOD_PRESS_STATUS, PARAM_FOD_RELEASED);
@@ -54,7 +62,7 @@ class SM8750UdfpsHandler : public UdfpsHandler {
 
     void onAcquired(int32_t result, int32_t vendorCode) {
         LOG(DEBUG) << __func__ << " result: " << result << " vendorCode: " << vendorCode;
-        if (static_cast<AcquiredInfo>(result) == AcquiredInfo::VENDOR && 
+        if (static_cast<AcquiredInfo>(result) == AcquiredInfo::VENDOR &&
            (vendorCode == 201 || vendorCode == 202)) {
             onFingerUp();
         }
@@ -65,7 +73,7 @@ class SM8750UdfpsHandler : public UdfpsHandler {
     }
 
   private:
-    fingerprint_device_t* mDevice;
+    fingerprint_device_t* mDevice = nullptr;
 };
 
 static UdfpsHandler* create() {

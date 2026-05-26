@@ -8,6 +8,7 @@ cc_library {
     name: "libudfpshandler",
     vendor: true,
     srcs: ["UdfpsHandler.cpp"],
+    defaults: ["xiaomi_sm8750_fingerprint_v2_defaults"],
     compile_multilib: "64",
     shared_libs: [
         "libbase",
@@ -16,7 +17,6 @@ cc_library {
         "android.hardware.biometrics.fingerprint-V4-ndk",
     ],
     header_libs: [
-        "//hardware/xiaomi:xiaomifingerprint_headers",
+        "//device/xiaomi/sm8750-common/fingerprint:xiaomi_sm8750_fingerprint_headers",
     ],
-    defaults: ["xiaomi_hardware_biometrics_config_default"],
 }

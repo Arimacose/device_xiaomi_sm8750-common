@@ -137,6 +137,7 @@ vendor.wv.oemcrypto.debug.enable_hlos_data_path=true
 
 # Fingerprint
 persist.vendor.fingerprint.type=udfps
+ro.vendor.extension_library=libqti-perfd-client.so
 
 # FUSE
 persist.sys.fuse.passthrough.enable=true
