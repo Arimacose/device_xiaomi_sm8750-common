@@ -49,9 +49,34 @@ on fs
     write /proc/sys/kernel/firmware_config/force_sysfs_fallback 1
     mkdir /vendor/firmware_mnt
     mkdir /vendor/firmware
-    mount_all /vendor/etc/charger_fstab.qti --early
+    mount_all /vendor/etc/charger_fw_fstab.qti --early
     mount none /vendor/firmware_mnt/image /vendor/firmware bind rec
     wait /sys/kernel/boot_adsp/ssr
     write /sys/kernel/boot_adsp/ssr 1
     wait /sys/class/power_supply/battery
+
+on boot
+    wait /sys/class/power_supply/usb/type
+    start recovery-batterysecret
+    start recovery-mi_thermald
+    chmod 0664 /sys/class/qcom-battery/pd_verifed
+    chmod 0664 /sys/class/qcom-battery/request_vdm_cmd
+    chmod 0664 /sys/class/qcom-battery/verify_process
+    chmod 0664 /sys/class/xm_power/fuelgauge/strategy_fg/authentic
+    chmod 0664 /sys/class/xm_power/fuelgauge/strategy_fg/verify_slave_flag
+    chmod 0664 /sys/class/xm_power/fuelgauge/strategy_fg/slave_authentic
+
+service recovery-batterysecret /vendor/bin/batterysecret
+    class main
+    user root
+    group system wakelock
+    disabled
+    seclabel u:r:batterysecret:s0
+
+service recovery-mi_thermald /vendor/bin/mi_thermald
+    class main
+    user root
+    group system
+    disabled
+    seclabel u:r:mi_thermald:s0
 # END Recovery_StabilityEnhance
