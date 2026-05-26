@@ -1489,7 +1489,6 @@ system_ext/etc/init/qspa_system.rc
 system_ext/etc/qspa/qspa_default.rc
 vendor/bin/vendor.qti.qspa-service
 vendor/etc/vintf/manifest/qspa/qspa-modem.xml
-vendor/etc/init/qspa_vendor.rc
 
 # QSPM
 vendor/bin/vendor.qti.qspmhal-service
