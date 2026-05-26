@@ -15,6 +15,8 @@ on boot
     chmod 0666 /sys/bus/platform/devices/soc:xiaomi_fingerprint/intr2
 
 on post-fs-data
+    setprop persist.vendor.camera.sdk.third.jpegr.enable 0
+
     # for primary panel
     chown system system /sys/class/mi_display/disp-DSI-0/wp_info
     chmod 0444 /sys/class/mi_display/disp-DSI-0/wp_info
