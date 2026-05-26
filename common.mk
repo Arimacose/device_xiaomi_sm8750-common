@@ -410,7 +410,6 @@ PRODUCT_PACKAGES += \
     libwpa_client \
     wpa_cli \
     wpa_supplicant \
-    wpa_supplicant.conf \
     libpasn \
     libwifi-hal
 
