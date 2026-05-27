@@ -40,17 +40,22 @@ constexpr uint16_t kWaveformClick = 2;
 constexpr uint16_t kWaveformShort = 3;
 constexpr uint16_t kWaveformThud = 4;
 constexpr uint16_t kWaveformQuickRise = 6;
+constexpr uint16_t kWaveformKeyboardTick = 7;
 constexpr uint16_t kWaveformQuickFall = 8;
-constexpr uint16_t kWaveformLightTick = 9;
 constexpr int32_t kMaxTimeoutMs = UINT16_MAX;
 constexpr int32_t kComposeDelayMaxMs = 1000;
 constexpr int32_t kComposeSizeMax = 16;
 constexpr int32_t kDoubleClickPulseMs = 12;
 constexpr int32_t kDoubleClickPeriodMs = 55;
+constexpr int32_t kGestureTickDurationMs = 16;
+constexpr int32_t kKeyboardTickDurationMs = 10;
+constexpr int32_t kEffectCleanupDelayMs = 80;
 
 constexpr uint8_t kLightGainPct = 40;
 constexpr uint8_t kMediumGainPct = 60;
 constexpr uint8_t kStrongGainPct = 82;
+constexpr uint8_t kGestureTickGainPct = 85;
+constexpr uint8_t kKeyboardTickGainPct = 75;
 
 bool testBit(int bit, const unsigned long* array) {
     return (array[bit / (sizeof(unsigned long) * 8)] &
@@ -351,13 +356,32 @@ void Vibrator::scheduleFollowupHaptic(uint64_t generation, int32_t delayMs, uint
     }).detach();
 }
 
+void Vibrator::scheduleEffectCleanup(uint64_t generation, int32_t delayMs) {
+    std::thread([this, generation, delayMs] {
+        std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
+        if (mGeneration.load() != generation) {
+            return;
+        }
+
+        std::lock_guard lock(mLock);
+        if (mGeneration.load() != generation) {
+            return;
+        }
+
+        int ret = eraseEffectLocked();
+        if (ret != 0) {
+            ALOGE("Failed to clean up completed haptic effect: %s", strerror(-ret));
+        }
+    }).detach();
+}
+
 int32_t Vibrator::durationForEffect(Effect effect) const {
     switch (effect) {
         case Effect::CLICK:
             return 12;
         case Effect::TICK:
         case Effect::TEXTURE_TICK:
-            return 10;
+            return kGestureTickDurationMs;
         case Effect::DOUBLE_CLICK:
             return kDoubleClickPeriodMs + kDoubleClickPulseMs;
         case Effect::THUD:
@@ -379,7 +403,7 @@ uint16_t Vibrator::waveformForEffect(Effect effect) const {
             return kWaveformClick;
         case Effect::TICK:
         case Effect::TEXTURE_TICK:
-            return kWaveformLightTick;
+            return kWaveformClick;
         case Effect::THUD:
             return kWaveformThud;
         case Effect::POP:
@@ -390,6 +414,19 @@ uint16_t Vibrator::waveformForEffect(Effect effect) const {
 }
 
 uint8_t Vibrator::gainForEffect(Effect effect, EffectStrength strength) const {
+    if (effect == Effect::TICK || effect == Effect::TEXTURE_TICK) {
+        switch (strength) {
+            case EffectStrength::LIGHT:
+                return 75;
+            case EffectStrength::MEDIUM:
+                return kGestureTickGainPct;
+            case EffectStrength::STRONG:
+                return 92;
+            default:
+                return 0;
+        }
+    }
+
     int gain;
     switch (strength) {
         case EffectStrength::LIGHT:
@@ -442,8 +479,9 @@ int32_t Vibrator::durationForPrimitive(CompositePrimitive primitive) const {
         case CompositePrimitive::QUICK_FALL:
             return 16;
         case CompositePrimitive::LIGHT_TICK:
+            return kGestureTickDurationMs;
         case CompositePrimitive::LOW_TICK:
-            return 10;
+            return kKeyboardTickDurationMs;
         default:
             return 0;
     }
@@ -459,9 +497,10 @@ uint16_t Vibrator::waveformForPrimitive(CompositePrimitive primitive) const {
             return kWaveformQuickRise;
         case CompositePrimitive::QUICK_FALL:
             return kWaveformQuickFall;
-        case CompositePrimitive::LOW_TICK:
         case CompositePrimitive::LIGHT_TICK:
-            return kWaveformLightTick;
+            return kWaveformClick;
+        case CompositePrimitive::LOW_TICK:
+            return kWaveformKeyboardTick;
         default:
             return kWaveformShort;
     }
@@ -470,6 +509,13 @@ uint16_t Vibrator::waveformForPrimitive(CompositePrimitive primitive) const {
 uint8_t Vibrator::gainForPrimitive(CompositePrimitive primitive, float scale) const {
     if (scale <= 0.0f || primitive == CompositePrimitive::NOOP) {
         return 0;
+    }
+
+    if (primitive == CompositePrimitive::LIGHT_TICK) {
+        return kGestureTickGainPct;
+    }
+    if (primitive == CompositePrimitive::LOW_TICK && scale >= 0.95f) {
+        return kKeyboardTickGainPct;
     }
 
     int gain = static_cast<int>(kStrongGainPct * scale);
@@ -528,6 +574,7 @@ ndk::ScopedAStatus Vibrator::on(int32_t timeoutMs,
     }
 
     notifyOnComplete(callback, timeoutMs, generation);
+    scheduleEffectCleanup(generation, timeoutMs + kEffectCleanupDelayMs);
     return ndk::ScopedAStatus::ok();
 }
 
@@ -561,6 +608,7 @@ ndk::ScopedAStatus Vibrator::perform(Effect effect, EffectStrength strength,
 
     *_aidl_return = durationMs;
     notifyOnComplete(callback, durationMs, generation);
+    scheduleEffectCleanup(generation, durationMs + kEffectCleanupDelayMs);
     return ndk::ScopedAStatus::ok();
 }
 
@@ -656,6 +704,7 @@ ndk::ScopedAStatus Vibrator::compose(const std::vector<CompositeEffect>& composi
     }
 
     notifyOnComplete(callback, totalDurationMs, generation);
+    scheduleEffectCleanup(generation, totalDurationMs + kEffectCleanupDelayMs);
     return ndk::ScopedAStatus::ok();
 }
 

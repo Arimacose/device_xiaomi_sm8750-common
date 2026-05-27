@@ -64,6 +64,7 @@ private:
     int eraseEffectLocked();
     void notifyOnComplete(const std::shared_ptr<IVibratorCallback>& callback, int32_t delayMs,
                           uint64_t generation);
+    void scheduleEffectCleanup(uint64_t generation, int32_t delayMs);
     int32_t durationForEffect(Effect effect) const;
     int32_t durationForPrimitive(CompositePrimitive primitive) const;
     uint8_t gainForEffect(Effect effect, EffectStrength strength) const;
