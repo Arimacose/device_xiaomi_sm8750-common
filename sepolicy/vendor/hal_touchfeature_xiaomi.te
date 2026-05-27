@@ -37,6 +37,9 @@ allow hal_touchfeature_xiaomi_default sysfs_touch_suspend:file rw_file_perms;
 allow hal_touchfeature_xiaomi_default sysfs_tp_virtual_prox:file rw_file_perms;
 allow hal_touchfeature_xiaomi_default system_app:binder call;
 allow hal_touchfeature_xiaomi_default system_server:binder call;
+allow system_app hal_touchfeature_xiaomi_service:service_manager find;
+binder_call(system_app, hal_touchfeature_xiaomi_default)
+get_prop(system_app, vendor_touchfeature_prop)
 allow hal_touchfeature_xiaomi_default touchfeature_device:chr_file rw_file_perms;
 allow hal_touchfeature_xiaomi_default touchfeature_device:file { getattr map read };
 allow hal_touchfeature_xiaomi_default touchreport_data_file:dir rw_dir_perms;

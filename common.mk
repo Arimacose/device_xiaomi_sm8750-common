@@ -110,7 +110,6 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    audio.bluetooth.default \
     lib_bt_bundle \
     lib_bt_aptx \
     lib_bt_ble
@@ -428,3 +427,9 @@ PRODUCT_PACKAGES += \
 # WiFi Display
 PRODUCT_PACKAGES += \
     libwfdaac_vendor
+
+# Bluetooth audio is provided by stock QTI/Xiaomi AIDL v4 prebuilts. The
+# AOSP legacy audio.bluetooth.default module is unused by the stock AIDL audio
+# core route and brings in source-side V5 bluetooth audio dependencies.
+PRODUCT_PACKAGES -= \
+    audio.bluetooth.default
