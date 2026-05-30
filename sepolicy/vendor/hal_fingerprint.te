@@ -6,6 +6,7 @@ hal_client_domain(hal_fingerprint_default, vendor_hal_perf)
 get_prop(hal_fingerprint_default, vendor_panel_info_prop)
 set_prop(hal_fingerprint_default, vendor_fp_prop)
 
+allow hal_fingerprint_default fingerprint_vendor_data_file:dir create_dir_perms;
 allow hal_fingerprint_default vendor_fingerprint_data_file:dir create_dir_perms;
 allow hal_fingerprint_default vendor_fingerprint_data_file:file create_file_perms;
 allow hal_fingerprint_default vendor_fingerprint_data_file_fpdump:dir create_dir_perms;
@@ -37,7 +38,3 @@ allow hal_fingerprint_default tee_device:chr_file rw_file_perms;
 allow hal_fingerprint_default self:netlink_socket create_socket_perms_no_ioctl;
 allow hal_fingerprint_default self:capability sys_nice;
 allow hal_fingerprint_default surfaceflinger:binder transfer;
-get_prop(hal_fingerprint_default, vendor_panel_info_prop)
-set_prop(hal_fingerprint_default, vendor_fp_prop)
-set_prop(hal_fingerprint_default, vendor_fp_prop)
-set_prop(hal_fingerprint_default, vendor_qbt_device)
