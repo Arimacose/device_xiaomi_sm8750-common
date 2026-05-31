@@ -302,8 +302,8 @@ ndk::ScopedAStatus Session::onContextChanged(const common::OperationContext& /*c
     return ndk::ScopedAStatus::ok();
 }
 
-ndk::ScopedAStatus Session::onPointerCancelWithContext(const PointerContext& /*context*/) {
-    return ndk::ScopedAStatus::ok();
+ndk::ScopedAStatus Session::onPointerCancelWithContext(const PointerContext& context) {
+    return onPointerUp(context.pointerId);
 }
 
 ndk::ScopedAStatus Session::setIgnoreDisplayTouches(bool /*shouldIgnore*/) {

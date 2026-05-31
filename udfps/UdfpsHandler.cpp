@@ -8,6 +8,7 @@
 
 #include <aidl/android/hardware/biometrics/fingerprint/BnFingerprint.h>
 #include <android-base/logging.h>
+#include <android-base/properties.h>
 #include <android-base/unique_fd.h>
 
 #include <fstream>
@@ -19,6 +20,9 @@
 #define COMMAND_FOD_PRESS_Y 3
 #define PARAM_FOD_PRESSED 1
 #define PARAM_FOD_RELEASED 0
+#define QCOM_ACQUIRED_RETRY 28
+#define QCOM_ACQUIRED_WAIT_FOR_FINGER_UP 201
+#define QCOM_ACQUIRED_CAPTURE_COMPLETE 202
 
 using ::aidl::android::hardware::biometrics::fingerprint::AcquiredInfo;
 
@@ -36,6 +40,8 @@ class SM8750UdfpsHandler : public UdfpsHandler {
   public:
     void init(fingerprint_device_t* device) {
         mDevice = device;
+        mIsQcomUs = android::base::GetProperty("persist.vendor.sys.fp.vendor", "") == "qcom_us";
+        LOG(INFO) << __func__ << ": qcom_us=" << mIsQcomUs;
     }
 
     void onFingerDown(uint32_t x, uint32_t y, float /*minor*/, float /*major*/) {
@@ -63,17 +69,21 @@ class SM8750UdfpsHandler : public UdfpsHandler {
     void onAcquired(int32_t result, int32_t vendorCode) {
         LOG(DEBUG) << __func__ << " result: " << result << " vendorCode: " << vendorCode;
         if (static_cast<AcquiredInfo>(result) == AcquiredInfo::VENDOR &&
-           (vendorCode == 201 || vendorCode == 202)) {
+            ((mIsQcomUs && vendorCode == QCOM_ACQUIRED_RETRY) ||
+             vendorCode == QCOM_ACQUIRED_WAIT_FOR_FINGER_UP ||
+             vendorCode == QCOM_ACQUIRED_CAPTURE_COMPLETE)) {
             onFingerUp();
         }
     }
 
     void cancel() {
         LOG(INFO) << __func__;
+        onFingerUp();
     }
 
   private:
     fingerprint_device_t* mDevice = nullptr;
+    bool mIsQcomUs = false;
 };
 
 static UdfpsHandler* create() {
