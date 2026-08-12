@@ -61,9 +61,9 @@ BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_CMDLINE := \
     video=vfb:640x400,bpp=32,memsize=3072000 \
     lz4asm.support=1 \
-    swinfo.fingerprint=$(LINEAGE_VERSION) \
-    mtdoops.fingerprint=$(LINEAGE_VERSION) \
-    bootmonitor.fingerprint=$(LINEAGE_VERSION)
+    swinfo.fingerprint=$(ROM_FINGERPRINT) \
+    mtdoops.fingerprint=$(ROM_FINGERPRINT) \
+    bootmonitor.fingerprint=$(ROM_FINGERPRINT)
 
 BOARD_BOOTCONFIG := \
     androidboot.hardware=qcom \
