@@ -100,10 +100,8 @@ $(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(p) := $(call to-l
 # Platform
 BOARD_USES_QCOM_HARDWARE := true
 TARGET_BOARD_PLATFORM := sun
-# Xiaomi's platform identifier is "sun", while the matching open Qualcomm
-# hardware source family in this manifest is sm8750.  Keep the runtime/vendor
-# platform identifier intact and override only the CAF source namespace.
-QCOM_SOONG_NAMESPACE := hardware/qcom-caf/sm8750
+# Qualcomm common registers Xiaomi's runtime platform identifier "sun" as
+# UM 6.6 and maps it to the sm8750 CAF source family.
 
 # HyperOS 3.0.304 ships the Composer3 V3 service and VINTF fragment.
 # Override the Qualcomm common V2 fallback so source-side defaults and
