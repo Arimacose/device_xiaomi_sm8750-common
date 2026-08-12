@@ -101,6 +101,11 @@ $(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(p) := $(call to-l
 BOARD_USES_QCOM_HARDWARE := true
 TARGET_BOARD_PLATFORM := sun
 
+# HyperOS 3.0.304 ships the Composer3 V3 service and VINTF fragment.
+# Override the Qualcomm common V2 fallback so source-side defaults and
+# the preferred stock composer prebuilt use a single stable AIDL version.
+SOONG_CONFIG_qtidisplay_composer_version := v3_3
+
 # Properties
 TARGET_ODM_PROP += $(COMMON_PATH)/configs/properties/odm.prop
 TARGET_PRODUCT_PROP += $(COMMON_PATH)/configs/properties/product.prop
@@ -164,9 +169,9 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(COMMON_PATH)/configs/vintf/compatibility_matrix.xiaomi.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml
 
-DEVICE_MATRIX_FILE := \
-    $(COMMON_PATH)/configs/vintf/compatibility_matrix.xml \
-    hardware/qcom-caf/common/compatibility_matrix_aidl.xml
+# The local AIDL matrix is the maintained copy of Qualcomm's matrix; avoid
+# referencing a second copy that is absent from the YAAP common project.
+DEVICE_MATRIX_FILE := $(COMMON_PATH)/configs/vintf/compatibility_matrix.xml
 
 DEVICE_MANIFEST_SKUS := sun
 DEVICE_MANIFEST_SUN_FILES := \
