@@ -105,7 +105,7 @@ odm/lib64/libwindns.so;DISABLE_CHECKELF
 odm/lib64/vendor.xiaomi.hardware.seaaudio-V1-ndk.so
 vendor/bin/hw/audiohalservice.qti
 vendor/etc/hrtf5c.bin
-vendor/etc/init/audiohalservice_qti.rc
+vendor/etc/init/audiohalservice_qti.rc:vendor/etc/init/audiohalservice_qti_xiaomi.rc
 vendor/etc/models/acd/environment.eai
 vendor/etc/models/acd/event.eai
 vendor/etc/models/acd/music.eai
@@ -246,7 +246,9 @@ vendor/etc/vintf/manifest/bluetooth_sar.xml
 vendor/etc/vintf/manifest/bluetooth-finder.xml
 vendor/etc/vintf/manifest/bt_lmp_event-saidl.xml
 vendor/etc/vintf/manifest/bttpi-saidl.xml
-vendor/etc/vintf/manifest/bluetooth_audio.xml
+# Keep the stock QTI AIDL v4 declaration, but give its fragment a unique
+# install filename so it does not collide with the AOSP v5 source module.
+vendor/etc/vintf/manifest/bluetooth_audio.xml:vendor/etc/vintf/manifest/bluetooth_audio_qti.xml
 vendor/etc/vintf/manifest/manifest_btaudiocoreservices_qti.xml
 vendor/etc/vintf/manifest/vendor.qti.hardware.bluetooth.xpanprovider.xml
 vendor/lib64/hw/android.hardware.bluetooth.audio_sw.so;DISABLE_CHECKELF
@@ -603,22 +605,25 @@ vendor/lib64/libhdrdynamicootf.so
 vendor/lib64/libhdrvivid.so
 
 # Display HWC
+# Keep the HyperOS service definitions and VINTF declarations under
+# unique install filenames; init and libvintf scan every file in these
+# directories, while dormant CAF module rules retain their own names.
 vendor/bin/hw/vendor.qti.hardware.display.allocator-service
 vendor/bin/hw/vendor.qti.hardware.display.composer-service
 vendor/bin/hw/vendor.qti.hardware.display.demura-service
-vendor/bin/init.qti.display_boot.sh
+vendor/bin/init.qti.display_boot.sh:vendor/bin/init.qti.display_boot_xiaomi.sh
 vendor/bin/qdcmss
 vendor/bin/ubwcconvert
-vendor/etc/init/init.qti.display_boot.rc
+vendor/etc/init/init.qti.display_boot.rc:vendor/etc/init/init.qti.display_boot_xiaomi.rc
 vendor/etc/init/qdcmss.rc
-vendor/etc/init/vendor.qti.hardware.display.allocator-service.rc
-vendor/etc/init/vendor.qti.hardware.display.composer-service.rc
-vendor/etc/init/vendor.qti.hardware.display.demura-service.rc
+vendor/etc/init/vendor.qti.hardware.display.allocator-service.rc:vendor/etc/init/vendor.qti.hardware.display.allocator-service_xiaomi.rc
+vendor/etc/init/vendor.qti.hardware.display.composer-service.rc:vendor/etc/init/vendor.qti.hardware.display.composer-service_xiaomi.rc
+vendor/etc/init/vendor.qti.hardware.display.demura-service.rc:vendor/etc/init/vendor.qti.hardware.display.demura-service_xiaomi.rc
 vendor/etc/snapdragon_color_libs_config.xml
-vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml
-vendor/etc/vintf/manifest/vendor.qti.hardware.display.composer-service3_v3.xml
-vendor/etc/vintf/manifest/vendor.qti.hardware.display.demura-service.xml
-vendor/etc/vintf/manifest/mapper.qti.xml
+vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml:vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service_xiaomi.xml
+vendor/etc/vintf/manifest/vendor.qti.hardware.display.composer-service3_v3.xml:vendor/etc/vintf/manifest/vendor.qti.hardware.display.composer-service3_v3_xiaomi.xml
+vendor/etc/vintf/manifest/vendor.qti.hardware.display.demura-service.xml:vendor/etc/vintf/manifest/vendor.qti.hardware.display.demura-service_xiaomi.xml
+vendor/etc/vintf/manifest/mapper.qti.xml:vendor/etc/vintf/manifest/mapper.qti_xiaomi.xml
 vendor/lib/hw/android.hardware.graphics.mapper@4.0-impl-qti-display.so
 vendor/lib/hw/mapper.qti.so
 vendor/lib/libgralloccore.so
@@ -1958,8 +1963,9 @@ vendor/etc/wifi/p2p_supplicant_overlay.conf
 vendor/etc/wifi/peach_v2/WCNSS_qcom_cfg.ini
 vendor/etc/wifi/peach/WCNSS_qcom_cfg.ini
 vendor/etc/wifi/vendor_cmd.xml
+# The CAF module owns the base wpa_supplicant.conf.  Preserve Xiaomi-specific
+# settings through the overlay; extract-files.py adds the one stock-only flag.
 vendor/etc/wifi/wpa_supplicant_overlay.conf
-vendor/etc/wifi/wpa_supplicant.conf
 vendor/lib64/libWlanServiceJni.so
 
 # Wifi Display

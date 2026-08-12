@@ -41,6 +41,14 @@ lib_fixups: lib_fixups_user_type = {
 }
 
 blob_fixups: blob_fixups_user_type = {
+    'vendor/etc/wifi/wpa_supplicant_overlay.conf': blob_fixup()
+        .add_line_if_missing('bss_no_flush_when_down=1'),
+    'vendor/etc/init/init.qti.display_boot_xiaomi.rc': blob_fixup()
+        .regex_replace(
+            r'/vendor/bin/init\.qti\.display_boot\.sh',
+            '/vendor/bin/init.qti.display_boot_xiaomi.sh'
+        ),
+
     (
         'vendor/lib64/libwfdmmsrc_proprietary.so',
     ): blob_fixup()
@@ -137,7 +145,7 @@ blob_fixups: blob_fixups_user_type = {
             'libtinyxml2.so',
             'libtinyxml2-v34.so'
         ),
-    'vendor/bin/init.qti.display_boot.sh': blob_fixup()
+    'vendor/bin/init.qti.display_boot_xiaomi.sh': blob_fixup()
         .regex_replace(
             r'\n        setprop debug\.sf\.enable_vrr_config 1\n        setprop vendor\.display\.enable_hal_self_refresh 1',
             '\n        # Set statically from vendor.prop; this domain cannot set debug_prop.\n        setprop vendor.display.enable_hal_self_refresh 1'
