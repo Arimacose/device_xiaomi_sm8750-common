@@ -110,6 +110,9 @@ vendor/etc/models/acd/environment.eai
 vendor/etc/models/acd/event.eai
 vendor/etc/models/acd/music.eai
 vendor/etc/models/acd/speech.eai
+vendor/etc/vintf/manifest/audioeffectservice_qti.xml:vendor/etc/vintf/manifest/audioeffectservice_haotian_stock.xml;EXTRACT_ONLY
+vendor/etc/vintf/manifest/manifest_audiocorehal_default.xml:vendor/etc/vintf/manifest/manifest_audiocorehal_haotian_stock.xml;EXTRACT_ONLY
+vendor/etc/vintf/manifest/manifest_audio_qti_services.xml:vendor/etc/vintf/manifest/manifest_audio_qti_services_haotian_stock.xml;EXTRACT_ONLY
 vendor/etc/vintf/manifest/qasr_vintf.xml
 vendor/lib64/android.media.audio.common.types-V6-ndk.so
 
@@ -120,7 +123,7 @@ vendor/lib64/android.media.audio.common.types-V6-ndk.so
 vendor/lib64/hw/libaudiocorehal.default.so;DISABLE_DEPS
 vendor/lib64/hw/libaudiocorehal.qti.so;DISABLE_DEPS
 vendor/lib64/hw/libaudioeffecthal.qti.so;DISABLE_DEPS
-vendor/lib64/hw/libsoundtriggerhal.qti.so;DISABLE_DEPS
+vendor/lib64/hw/libsoundtriggerhal.qti.so
 vendor/lib64/lib_lvacfs.so
 vendor/lib64/libadm.so
 vendor/lib64/libar-acdb.so

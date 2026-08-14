@@ -4,6 +4,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+from pathlib import Path
+
 import extract_utils.tools
 from extract_utils.fixups_blob import (
     blob_fixup,
@@ -232,6 +234,48 @@ module = ExtractUtilsModule(
     check_elf=True,
 )
 
+
+AUDIO_VINTF_FRAGMENTS = {
+    'libaudiocorehal.default': 'manifest_audiocorehal_haotian_stock.xml',
+    'libaudiocorehal.qti': 'manifest_audio_qti_services_haotian_stock.xml',
+    'libaudioeffecthal.qti': 'audioeffectservice_haotian_stock.xml',
+}
+
+
+def attach_audio_vintf_fragments() -> None:
+    """Restore VINTF attachments lost when preferred prebuilts shadow CAF modules."""
+    android_bp = Path(module.vendor_path) / 'Android.bp'
+    contents = android_bp.read_text(encoding='utf-8')
+
+    for module_name, fragment_name in AUDIO_VINTF_FRAGMENTS.items():
+        fragment_path = (
+            'proprietary/vendor/etc/vintf/manifest/' + fragment_name
+        )
+        module_header = (
+            'cc_prebuilt_library_shared {\n'
+            f'    name: "{module_name}",\n'
+        )
+        fragment_block = (
+            '    vintf_fragments: [\n'
+            f'        "{fragment_path}",\n'
+            '    ],\n'
+        )
+
+        if fragment_path in contents:
+            continue
+        if contents.count(module_header) != 1:
+            raise RuntimeError(
+                f'Expected exactly one generated module header for {module_name}'
+            )
+        contents = contents.replace(
+            module_header,
+            module_header + fragment_block,
+            1,
+        )
+
+    android_bp.write_text(contents, encoding='utf-8')
+
 if __name__ == '__main__':
     utils = ExtractUtils.device(module)
     utils.run()
+    attach_audio_vintf_fragments()
