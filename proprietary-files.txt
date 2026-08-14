@@ -113,6 +113,7 @@ vendor/etc/models/acd/speech.eai
 vendor/etc/vintf/manifest/audioeffectservice_qti.xml:vendor/etc/vintf/manifest/audioeffectservice_haotian_stock.xml;EXTRACT_ONLY
 vendor/etc/vintf/manifest/manifest_audiocorehal_default.xml:vendor/etc/vintf/manifest/manifest_audiocorehal_haotian_stock.xml;EXTRACT_ONLY
 vendor/etc/vintf/manifest/manifest_audio_qti_services.xml:vendor/etc/vintf/manifest/manifest_audio_qti_services_haotian_stock.xml;EXTRACT_ONLY
+vendor/etc/vintf/manifest/soundtrigger.qti.xml:vendor/etc/vintf/manifest/soundtrigger_haotian_stock.xml;EXTRACT_ONLY
 vendor/etc/vintf/manifest/qasr_vintf.xml
 vendor/lib64/android.media.audio.common.types-V6-ndk.so
 

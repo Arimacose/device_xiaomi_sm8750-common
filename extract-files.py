@@ -239,6 +239,7 @@ AUDIO_VINTF_FRAGMENTS = {
     'libaudiocorehal.default': 'manifest_audiocorehal_haotian_stock.xml',
     'libaudiocorehal.qti': 'manifest_audio_qti_services_haotian_stock.xml',
     'libaudioeffecthal.qti': 'audioeffectservice_haotian_stock.xml',
+    'libsoundtriggerhal.qti': 'soundtrigger_haotian_stock.xml',
 }
 
 
